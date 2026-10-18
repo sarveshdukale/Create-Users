@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.css";
+import { v4 as uuidv4 } from "uuid";
 
 const App = () => {
   const [name, setName] = React.useState("");
@@ -12,11 +13,13 @@ const App = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const newUser = {
+      id: uuidv4(),
       name,
       age,
       salary,
       city,
     };
+    
     setUsers([...users, newUser]);
 
     // Clear the input fields after submission
@@ -24,6 +27,8 @@ const App = () => {
     setAge("" );
     setSalary("");
     setCity("");  
+
+    console.log("User added:", newUser);
   };
 
   return (
@@ -87,9 +92,9 @@ const App = () => {
           "Add some users to see them here"
         ) : (
           <div className="allUsers flex flex-wrap gap-4 justify-space-evenly">
-            {users.map((user, index) => (
+            {users.map((user) => (
               <div
-                key={index}
+                key={user.id}
                 className="userCard w-[220px] h-[150px] text-white  bg-[#5f8ae8] p-4 rounded-2xl shadow-md"
               >
                 <p>Name: {user.name}</p>
